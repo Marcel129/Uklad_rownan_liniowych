@@ -1,7 +1,7 @@
+#include "rozmiar.h"
 #ifndef MACIERZ_HH
 #define MACIERZ_HH
 
-#include "rozmiar.h"
 #include "Wektor.hh"
 #include <iostream>
 
@@ -20,28 +20,23 @@ public:
     for (int i = 0; i < ROZMIAR; i++)
       tablica[i] = tab[i];
   };
-  void wpisz_wektory(Wektor *tab)
-  {
-    for (int i = 0; i < ROZMIAR; i++)
-      tablica[i] = *(tab + i);
-  }
-  Wektor const *zwroc_macierz(void) const
-  {
-    return tablica;
-  }
-  Wektor const *zwroc_wektor(int ind) const
-  {
-    return tablica + ind;
-  }
-  const Wektor operator[](int ind) const
-  {
-    if (ind < 0 || ind > ROZMIAR)
-    {
-      std::cerr << "Przekroczenie zakrestu tablicy" << std::endl;
-      exit(1);
+  Wektor & operator[](int ind){//set
+        if (ind < 0 || ind > ROZMIAR)
+        {std::cout<<ind<<std::endl;
+            std::cerr << "Przekroczenie zakresu" << std::endl;
+            exit(1);
+        }
+        return tablica[ind];
     }
-    return tablica[ind];
-  }
+    const Wektor & operator[](int ind)const{//get
+        if (ind < 0 || ind > ROZMIAR)
+        {std::cout<<ind<<std::endl;
+            std::cerr << "Przekroczenie zakresu" << std::endl;
+            exit(1);
+        }
+        return tablica[ind];
+    }
+
   void transponuj_macierz(void);
 };
 
@@ -52,7 +47,7 @@ public:
  * znalezc w pliku:
  *    ~bk/edu/kpo/zalecenia.txt 
  */
-std::fstream &operator>>(std::fstream &Strm, Macierz &Mac);
+std::istream &operator>>(std::istream &Strm, Macierz &Mac);
 
 /*
  * To przeciazenie trzeba opisac. Co ono robi. Jaki format

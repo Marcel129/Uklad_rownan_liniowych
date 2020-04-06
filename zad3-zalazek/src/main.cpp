@@ -2,12 +2,13 @@
 #include "Wektor.hh"
 #include "Macierz.hh"
 #include "UkladRownanLiniowych.hh"
+#include "rozmiar.h"
 
 using namespace std;
 /*zaczęta implementacja eliminacji Gaussa, narazie roboczo wszystko w mainie, docelowo będzie to przeniesione do układu równań*/
 int main()
 {
-  //UkladRownanLiniowych   UklRown;   // To tylko przykladowe definicje zmiennej
+  UkladRownanLiniowych UklRown; // To tylko przykladowe definicje zmiennej
   fstream baza_pytan;
   baza_pytan.open("/home/mracel/Pulpit/baza_danych.txt", ios::in);
   if (baza_pytan.good() == false)
@@ -17,16 +18,18 @@ int main()
   }
 
   cout << endl
-       << " Start programu " << endl
+       << " Start programu   Rozmiar: " << ROZMIAR<<"   roz_ukl: " <<ROZ_UKL<<endl
        << endl;
-  Macierz mac_wsp;
+  baza_pytan >> UklRown;
+  /*Macierz mac_wsp;
   Wektor wektor_wyr_woln;
   baza_pytan >> mac_wsp;
-  baza_pytan >> wektor_wyr_woln;
+  baza_pytan >> wektor_wyr_woln;*/
 
-  mac_wsp.transponuj_macierz();
-  cout << "Transponowana macierz wspolczynnikow (wczytana):" << endl << mac_wsp << endl;
-
+  cout << "Wczytane wspolczynniki ukladu rownan:" << endl
+       << UklRown << endl;
+  //mac_wsp.transponuj_macierz();
+  /*
   for (int k = 0; k < 2; k++)
   {
     double tab[ROZMIAR][ROZMIAR];
@@ -54,10 +57,24 @@ int main()
       }
     }
     mac_wsp = Macierz(tab_wek);
-  }
+  }*/
+  
+    /*ETAP 1*/
+    double dzielnik = UklRown[0][0];
+    for (int i = 0; i < ROZ_UKL; ++i)
+      UklRown[i][0] /= dzielnik;
+    
+    /*ETAP 2*/
+/*
+    for (int k = 1; k < ROZMIAR; ++k)
+    {
+      for (int i = 0; i < ROZMIAR; ++i)
+        UklRown[i][k] = UklRown[i][k] - UklRown[i][0] * UklRown[i][k];
+    }*/
+  
 
-  cout << "Macierz wejściowa przekształcona do macierzy trójkątnej:" << endl
-       << mac_wsp << endl;
+  cout << "Uklad po pierwszej operacji:" << endl
+       << UklRown << endl; /*
   cout << "Wektor wyrazow wolnych" << endl
-       << wektor_wyr_woln << endl;
+       << wektor_wyr_woln << endl;*/
 }

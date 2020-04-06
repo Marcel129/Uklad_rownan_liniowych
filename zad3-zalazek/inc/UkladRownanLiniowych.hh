@@ -2,20 +2,39 @@
 #define UKLADROWNANLINIOWYCH_HH
 
 #include <iostream>
-
+#include "Wektor.hh"
+#include "Macierz.hh"
+#include "rozmiar.h"
+#define ROZ_UKL (ROZMIAR + 1)
 /*
  *  Tutaj trzeba opisac klase. Jakie pojecie modeluje ta klasa
  *  i jakie ma glowne cechy.
  */
 class UkladRownanLiniowych
 {
-  /*
-   *  Tutaj trzeba wstawic definicje odpowiednich pol i metod prywatnych
-   */
+  Wektor tablica[ROZ_UKL]; //połączona macierz współczynników i wyrazów wolnych, dla Gaussa łatwiej operować na całości
 public:
-  /*
-   *  Tutaj trzeba wstawic definicje odpowiednich metod publicznych
-   */
+
+  Wektor &operator[](int ind)
+  { //set
+    if (ind < 0 || ind > ROZ_UKL)
+    {std::cout<<ind<<std::endl;
+      std::cerr << "Przekroczenie zakresu" << std::endl;
+      exit(1);
+    }
+    return tablica[ind];
+  }
+  const Wektor &operator[](int ind) const
+  { //get
+  
+    if (ind < 0 || ind > ROZ_UKL)
+    { std::cout<<ind<<std::endl;
+      std::cerr << "Przekroczenie zakresu" << std::endl;
+      exit(1);
+    }
+    return tablica[ind];
+  }
+  
 };
 
 /*

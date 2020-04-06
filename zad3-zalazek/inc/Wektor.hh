@@ -1,3 +1,4 @@
+
 #ifndef WEKTOR_HH
 #define WEKTOR_HH
 
@@ -21,33 +22,50 @@ public:
       tablica[i] = moja_tab[i];
   }
 
-  void podstaw_do_tablicy(double *war)
-  {
-    for (int i = 0; i < ROZMIAR; i++)
-      tablica[i] = war[i];
-  }
-
-  double const *zwroc_tablice(void) const
-  {
-    return tablica;
-  }
-  double operator[](int ind) const
+  const double &operator[](int ind) const //get
   {
     if (ind < 0 || ind > ROZMIAR)
-    {
-      std::cerr << "Przekroczenie zakrestu tablicy" << std::endl;
+    {std::cout<<ind<<std::endl;
+      std::cerr << "Przekroczenie zakresu" << std::endl;
       exit(1);
     }
     return tablica[ind];
   }
-  void operator/(double dzielnik)//dzielenie wektora przez liczbe
+
+  double &operator[](int ind) //set
   {
-    for (int i = 0; i < ROZMIAR; i++)
-    {
-      tablica[i] /= dzielnik;
-      std::cout<<tablica[i];
+    if (ind < 0 || ind > ROZMIAR)
+    {std::cout<<ind<<std::endl;
+      std::cerr << "Przekroczenie zakresu" << std::endl;
+      exit(1);
     }
-    std::cout<<std::endl;
+    return tablica[ind];
+  }
+  Wektor operator*(double mnoznik)
+  { //mnozenie wektora przez liczbe
+    Wektor W(tablica);
+    if (mnoznik != 0)
+    {
+      for (int i = 0; i < ROZMIAR; ++i)
+        W.tablica[i] *= mnoznik;
+    }
+    return W;
+  }
+  Wektor operator+(const Wektor &W2) //dodawanie dwoch wektorow
+  {
+    Wektor W(tablica);
+    for (int i = 0; i < ROZMIAR; ++i)
+      W.tablica[i] += W2.tablica[i];
+
+    return W;
+  }
+  Wektor operator-(const Wektor &W2) //odejmowanie dwoch wektorow  (działa na kolumnach)
+  {
+    Wektor W(tablica);
+    for (int i = 0; i < ROZMIAR; ++i)
+      W.tablica[i] -= W2.tablica[i];
+
+    return W;
   }
 };
 
@@ -58,7 +76,7 @@ public:
  * znalezc w pliku:
  *    ~bk/edu/kpo/zalecenia.txt 
  */
-std::fstream &operator>>(std::fstream &Strm, Wektor &W);
+std::istream &operator>>(std::istream &Strm, Wektor &W);
 
 /*
  * To przeciazenie trzeba opisac. Co ono robi. Jaki format
