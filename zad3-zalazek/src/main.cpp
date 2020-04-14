@@ -18,16 +18,20 @@ int main()
   }
 
   cout << endl
-       << " Start programu   Rozmiar: " << ROZMIAR<<"   roz_ukl: " <<ROZ_UKL<<endl
+       << " Start programu  " << endl
        << endl;
-  baza_pytan >> UklRown;
-  /*Macierz mac_wsp;
+  //baza_pytan >> UklRown;
+
   Wektor wektor_wyr_woln;
+  Macierz mac_wsp;
   baza_pytan >> mac_wsp;
-  baza_pytan >> wektor_wyr_woln;*/
+  baza_pytan >> wektor_wyr_woln;
 
   cout << "Wczytane wspolczynniki ukladu rownan:" << endl
-       << UklRown << endl;
+       << mac_wsp << endl;
+
+  cout << "Wektor wyrazów wolnych:" << endl
+       << wektor_wyr_woln << endl;
   //mac_wsp.transponuj_macierz();
   /*
   for (int k = 0; k < 2; k++)
@@ -57,24 +61,24 @@ int main()
       }
     }
     mac_wsp = Macierz(tab_wek);
-  }*/
+  }
   
-    /*ETAP 1*/
+    ETAP 1
     double dzielnik = UklRown[0][0];
     for (int i = 0; i < ROZ_UKL; ++i)
       UklRown[i][0] /= dzielnik;
     
-    /*ETAP 2*/
-/*
+    ETAP 2
+
     for (int k = 1; k < ROZMIAR; ++k)
     {
       for (int i = 0; i < ROZMIAR; ++i)
         UklRown[i][k] = UklRown[i][k] - UklRown[i][0] * UklRown[i][k];
-    }*/
+    }
   
 
   cout << "Uklad po pierwszej operacji:" << endl
-       << UklRown << endl; /*
+       << UklRown << endl; 
   cout << "Wektor wyrazow wolnych" << endl
        << wektor_wyr_woln << endl;*/
 }

@@ -1,9 +1,9 @@
-#include "rozmiar.h"
+
 #ifndef MACIERZ_HH
 #define MACIERZ_HH
-
-#include "Wektor.hh"
 #include <iostream>
+#include "rozmiar.h"
+#include "Wektor.hh"
 
 /*
  *  Tutaj trzeba opisac klase. Jakie pojecie modeluje ta klasa

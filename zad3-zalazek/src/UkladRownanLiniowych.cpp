@@ -1,12 +1,12 @@
 #include "UkladRownanLiniowych.hh"
 
 std::istream &operator>>(std::istream &strWej, UkladRownanLiniowych &U)
-{/*
+{
    Macierz M;
     for (int i = 0; i < ROZMIAR; i++)
         strWej >> M[i];
-    M.transponuj_macierz();//to trzeba będzie gdzieś przenieść (albo i nie, do przemyślenia)   SKASUJ KOMENTARZ JAK SKOŃCZYSZ!!!
-    */for (int i = 0; i < ROZMIAR; i++)
+    M.transponuj_macierz();
+    for (int i = 0; i < ROZMIAR; i++)
         strWej >> U[i];
     strWej >> U[ROZMIAR];
     return strWej;
