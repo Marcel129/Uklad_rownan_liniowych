@@ -10,6 +10,19 @@ std::istream &operator>>(std::istream &strWej, Wektor &W)
 std::ostream &operator<<(std::ostream &strWyj, const Wektor &W)
 {
     for (int i = 0; i < ROZMIAR; i++)
-        strWyj << W[i] << "\t";
+    {
+        strWyj <<std::setw(MIEJSCE)<<std::setprecision(PRECYZJA)<< W[i];
+        if (i + 1 < ROZMIAR)
+            strWyj << "\t";
+    }
     return strWyj;
+}
+
+double dlugosc_wektora(const Wektor W)
+{
+    double dl = 0;
+    for (int a = 0; a < ROZMIAR; ++a)
+        dl += W[a] * W[a];
+    dl = sqrt(dl);
+    return dl;
 }

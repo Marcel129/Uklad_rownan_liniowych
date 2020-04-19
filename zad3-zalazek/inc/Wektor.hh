@@ -5,17 +5,15 @@
 #include "rozmiar.h"
 #include <iostream>
 #include <fstream>
+#include <iomanip>
+#include <cmath>
 
-/*
- *  Tutaj trzeba opisac klase. Jakie pojecie modeluje ta klasa
- *  i jakie ma glowne cechy.
- */
 class Wektor
 {
   double tablica[ROZMIAR];
 
 public:
-  Wektor(){}; //kompilator krzyczy że nie zna metody jak nie ma wąsatych nawiasów
+  Wektor(){};
   Wektor(double moja_tab[])
   {
     for (int i = 0; i < ROZMIAR; i++)
@@ -25,7 +23,8 @@ public:
   const double &operator[](int ind) const //get
   {
     if (ind < 0 || ind > ROZMIAR)
-    {std::cout<<ind<<std::endl;
+    {
+      std::cout << ind << std::endl;
       std::cerr << "Przekroczenie zakresu" << std::endl;
       exit(1);
     }
@@ -35,22 +34,40 @@ public:
   double &operator[](int ind) //set
   {
     if (ind < 0 || ind > ROZMIAR)
-    {std::cout<<ind<<std::endl;
+    {
+      std::cout << ind << std::endl;
       std::cerr << "Przekroczenie zakresu" << std::endl;
       exit(1);
     }
     return tablica[ind];
   }
-  Wektor operator*(double mnoznik)
-  { //mnozenie wektora przez liczbe
+
+  Wektor operator*(double mnoznik)//mnozenie wektora przez liczbe
+  { 
     Wektor W(tablica);
-    if (mnoznik != 0)
+
+    for (int i = 0; i < ROZMIAR; ++i)
+      W.tablica[i] *= mnoznik;
+
+    return W;
+  }
+
+  Wektor operator/(double dzielnik)//dzielenie wektora przez liczbe
+  { 
+    Wektor W(tablica);
+    if (dzielnik != 0)
     {
       for (int i = 0; i < ROZMIAR; ++i)
-        W.tablica[i] *= mnoznik;
+        W.tablica[i] /= dzielnik;
+    }
+    else
+    {
+      std::cout << "Błąd:dzielenie przez 0" << std::endl;
+      exit(1);
     }
     return W;
   }
+
   Wektor operator+(const Wektor &W2) //dodawanie dwoch wektorow
   {
     Wektor W(tablica);
@@ -59,7 +76,8 @@ public:
 
     return W;
   }
-  Wektor operator-(const Wektor &W2) //odejmowanie dwoch wektorow  (działa na kolumnach)
+  
+  Wektor operator-(const Wektor &W2) //odejmowanie dwoch wektorow
   {
     Wektor W(tablica);
     for (int i = 0; i < ROZMIAR; ++i)
@@ -68,23 +86,8 @@ public:
     return W;
   }
 };
-
-/*
- * To przeciazenie trzeba opisac. Co ono robi. Jaki format
- * danych akceptuje. Jakie jest znaczenie parametrow itd.
- * Szczegoly dotyczace zalecen realizacji opisow mozna
- * znalezc w pliku:
- *    ~bk/edu/kpo/zalecenia.txt 
- */
+double dlugosc_wektora(const Wektor W);
 std::istream &operator>>(std::istream &Strm, Wektor &W);
-
-/*
- * To przeciazenie trzeba opisac. Co ono robi. Jaki format
- * danych akceptuje. Jakie jest znaczenie parametrow itd.
- * Szczegoly dotyczace zalecen realizacji opisow mozna
- * znalezc w pliku:
- *    ~bk/edu/kpo/zalecenia.txt 
- */
 std::ostream &operator<<(std::ostream &Strm, const Wektor &W);
 
 #endif
